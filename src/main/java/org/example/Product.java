@@ -32,12 +32,4 @@ public class Product {
     public int hashCode() {
         return Objects.hash(name, description);
     }
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "description='" + description + '\'' +
-                ", name='" + name + '\'' +
-                '}';
-    }
 }
