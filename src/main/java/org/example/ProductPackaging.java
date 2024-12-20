@@ -3,8 +3,8 @@ package org.example;
 import java.util.Objects;
 
 public class ProductPackaging {
-    private String name;
-    private double weight;
+    private final String name;
+    private final double weight;
 
     public ProductPackaging(String name, double weight)
     {
