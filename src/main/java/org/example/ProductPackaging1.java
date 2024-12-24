@@ -1,12 +1,12 @@
 package org.example;
-
+//упаковка товара
 import java.util.Objects;
 
-public class ProductPackaging {
+public class ProductPackaging1 {
     private final String name;
-    private final double weight;
+    private final double weight; // масса упаковки в кг
 
-    public ProductPackaging(String name, double weight)
+    public ProductPackaging1(String name, double weight)
     {
         this.name = name;
         this.weight = weight;
@@ -24,7 +24,7 @@ public class ProductPackaging {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ProductPackaging that = (ProductPackaging) o;
+        ProductPackaging1 that = (ProductPackaging1) o;
         return Double.compare(weight, that.weight) == 0 && Objects.equals(name, that.name);
     }
 
