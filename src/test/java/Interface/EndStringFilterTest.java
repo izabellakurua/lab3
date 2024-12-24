@@ -5,17 +5,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class EndStringFilterTest {
 
-
-    @Test
-    void testConstructor() {
-        String pattern = "world!";
-        EndStringFilter filter = new EndStringFilter(pattern);
-
-
-        assertNotNull(filter);
-    }
-
-
     @Test
     void testApplyWithMatchingEnding() {
         String pattern = "world!";

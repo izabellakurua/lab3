@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PackedPieceProduct6Test {
 
-    // Тест конструктора и инициализации полей
     @Test
     void testConstructor() {
         // Создаем объекты упаковки и штучного товара
@@ -20,7 +19,6 @@ class PackedPieceProduct6Test {
         // Создаем упакованный штучный товар
         PackedPieceProduct6 packedPieceProduct = new PackedPieceProduct6(pieceProduct, quantity, packaging);
 
-        // Проверяем, что поля инициализированы корректно
         assertEquals("Toy", packedPieceProduct.getName());
         assertEquals("A small toy", packedPieceProduct.getDescription());
         assertEquals(quantity, packedPieceProduct.getQuantity());
@@ -54,7 +52,7 @@ class PackedPieceProduct6Test {
         assertEquals(expectedNetWeight, packedPieceProduct.getNetWeight(), 0.01);
     }
 
-    // Тест на метод getGrossWeight, который возвращает массу брутто (с упаковкой)
+    // Тест, который возвращает массу брутто
     @Test
     void testGetGrossWeight() {
         ProductPackaging1 packaging = new ProductPackaging1("Box", 1.5);
@@ -63,7 +61,6 @@ class PackedPieceProduct6Test {
 
         PackedPieceProduct6 packedPieceProduct = new PackedPieceProduct6(pieceProduct, quantity, packaging);
 
-        // Проверяем, что метод getGrossWeight возвращает правильную массу брутто
         double expectedGrossWeight = (quantity * pieceProduct.getWeight()) + packaging.getWeight();
         assertEquals(expectedGrossWeight, packedPieceProduct.getGrossWeight(), 0.01);
     }

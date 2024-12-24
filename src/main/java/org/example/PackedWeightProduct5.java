@@ -6,7 +6,7 @@ public class PackedWeightProduct5 extends WeightProduct3 {
 
     public PackedWeightProduct5(WeightProduct3 weightProduct, ProductPackaging1 productPackaging, double weight)
     {
-        super(weightProduct.getName(), weightProduct.getDescription()); // объект весового товара
+        super(weightProduct.getName(), weightProduct.getDescription());
         this.weight = weight;//вес товара без упаковки
         this.productPackaging = productPackaging; //объект упаковки
     }

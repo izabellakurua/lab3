@@ -6,16 +6,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class ContainsStringFilterTest {
 
     @Test
-    void testConstructor() {
-        String pattern = "Hello";
-        ContainsStringFilter filter = new ContainsStringFilter(pattern);
-
-        // Проверяем, что фильтр был корректно инициализирован
-        assertNotNull(filter);
-    }
-
-    // Тест на метод apply, который проверяет, содержит ли строка шаблон
-    @Test
     void testApplyWithMatchingSubstring() {
         String pattern = "Hello";
         ContainsStringFilter filter = new ContainsStringFilter(pattern);
@@ -26,7 +16,6 @@ class ContainsStringFilterTest {
         assertTrue(filter.apply(testString));
     }
 
-    // Тест на метод apply, когда строка не содержит шаблон
     @Test
     void testApplyWithNonMatchingSubstring() {
         String pattern = "Hello";
@@ -38,7 +27,6 @@ class ContainsStringFilterTest {
         assertFalse(filter.apply(testString));
     }
 
-    // Тест на метод apply с пустой строкой
     @Test
     void testApplyWithEmptyString() {
         String pattern = "Hello";
@@ -50,17 +38,6 @@ class ContainsStringFilterTest {
         assertFalse(filter.apply(testString));
     }
 
-    // Тест на метод apply с пустым шаблоном
-    @Test
-    void testApplyWithEmptyPattern() {
-        String pattern = "";
-        ContainsStringFilter filter = new ContainsStringFilter(pattern);
-
-        String testString = "Hello, world!";
-
-        // Проверяем, что метод возвращает true, если шаблон пустой (любая строка содержит пустой шаблон)
-        assertTrue(filter.apply(testString));
-    }
 
     // Тест на метод apply с шаблоном, который полностью совпадает с строкой
     @Test

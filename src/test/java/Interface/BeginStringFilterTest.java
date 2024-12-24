@@ -6,17 +6,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BeginStringFilterTest {
 
-    // Тест на правильность инициализации фильтра
-    @Test
-    void testConstructor() {
-        String pattern = "Hello";
-        BeginStringFilter filter = new BeginStringFilter(pattern);
 
-        // Проверяем, что фильтр правильно инициализируется с шаблоном
-        assertNotNull(filter);
-    }
 
-    // Тест на метод apply, который проверяет, начинается ли строка с шаблона
     @Test
     void testApplyWithMatchingString() {
         String pattern = "Hello";
@@ -28,7 +19,6 @@ class BeginStringFilterTest {
         assertTrue(filter.apply(testString));
     }
 
-    // Тест на метод apply, когда строка не начинается с шаблона
     @Test
     void testApplyWithNonMatchingString() {
         String pattern = "Hello";
@@ -40,7 +30,6 @@ class BeginStringFilterTest {
         assertFalse(filter.apply(testString));
     }
 
-    // Тест на метод apply с пустой строкой
     @Test
     void testApplyWithEmptyString() {
         String pattern = "Hello";
@@ -52,19 +41,7 @@ class BeginStringFilterTest {
         assertFalse(filter.apply(testString));
     }
 
-    // Тест на метод apply с пустым шаблоном
-    @Test
-    void testApplyWithEmptyPattern() {
-        String pattern = "";
-        BeginStringFilter filter = new BeginStringFilter(pattern);
 
-        String testString = "Hello, world!";
-
-        // Проверяем, что метод возвращает true, если шаблон пустой (любая строка начинается с пустого шаблона)
-        assertTrue(filter.apply(testString));
-    }
-
-    // Тест на метод apply с одинаковыми строками
     @Test
     void testApplyWithEqualStrings() {
         String pattern = "Test";

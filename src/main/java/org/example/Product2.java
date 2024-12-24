@@ -3,8 +3,8 @@ package org.example;
 import java.util.Objects;
 //товар
 public class Product2 {
-    String name;
-    String description;
+    private String name;
+    private String description;
 
     public Product2(String name, String description)
     {

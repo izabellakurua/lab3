@@ -24,7 +24,7 @@ public class Consignment8 {
     public double getTotalGrossWeight() { //общая масса брутто всех товаров в партии
         double totalWeight = 0;//для хранения всех товаров в партии
         for (PackedWeightProduct5 p : weightProducts) {
-            totalWeight += p.getGrossWeight();
+            totalWeight += p.getGrossWeight();//вычисляем массу брутто
         }
         for (PackedPieceProduct6 p : Products) {
             totalWeight += p.getGrossWeight();

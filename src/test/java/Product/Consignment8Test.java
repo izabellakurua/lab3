@@ -20,7 +20,6 @@ class Consignment8Test {
                 Arrays.asList(weightProduct),
                 Arrays.asList(pieceProduct));
 
-        // Проверка инициализации полей
         assertEquals("Test Consignment", consignment.description);
         assertEquals(1, consignment.getWeightProducts().size());
         assertEquals(1, consignment.getProducts().size());
@@ -28,7 +27,7 @@ class Consignment8Test {
         assertTrue(consignment.getProducts().contains(pieceProduct));
     }
 
-    // Тест на метод getProducts, который возвращает список штучных товаров
+    // Тест, который возвращает список штучных товаров
     @Test
     void testGetProducts() {
         ProductPackaging1 packaging = new ProductPackaging1("Box", 1.5);
@@ -43,7 +42,7 @@ class Consignment8Test {
         assertTrue(consignment.getProducts().contains(pieceProduct));
     }
 
-    // Тест на метод getWeightProducts, который возвращает список весовых товаров
+    // Тест, который возвращает список весовых товаров
     @Test
     void testGetWeightProducts() {
         ProductPackaging1 packaging = new ProductPackaging1("Box", 1.5);
@@ -58,7 +57,7 @@ class Consignment8Test {
         assertTrue(consignment.getWeightProducts().contains(weightProduct));
     }
 
-    // Тест на метод getTotalGrossWeight, который возвращает общую массу брутто
+    // Тест, который возвращает общую массу брутто
     @Test
     void testGetTotalGrossWeight() {
         ProductPackaging1 packaging1 = new ProductPackaging1("Box", 1.5);

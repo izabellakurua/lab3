@@ -29,11 +29,10 @@ class ProductServiceTest {
         List<PackedWeightProduct5> weightProducts = Arrays.asList(weightProduct1, weightProduct2);
         List<PackedPieceProduct6> pieceProducts = Arrays.asList(pieceProduct1, pieceProduct2);
 
-        // Инициализируем Consignment8
         consignment = new Consignment8("Consignment 1", weightProducts, pieceProducts);
     }
 
-    // Тест на countByFilter с фильтром, который ищет по части строки
+    // ищет по части строки
     @Test
     void testCountByFilter_withContainsStringFilter() {
         ContainsStringFilter filter = new ContainsStringFilter("Product");
@@ -44,7 +43,7 @@ class ProductServiceTest {
         assertEquals(4, result);
     }
 
-    // Тест на countByFilter с фильтром, который не находит совпадений
+    // Тест, который не находит совпадений
     @Test
     void testCountByFilter_withNoMatches() {
         ContainsStringFilter filter = new ContainsStringFilter("Nonexistent");
@@ -55,7 +54,7 @@ class ProductServiceTest {
         assertEquals(0, result);
     }
 
-    // Тест на countByFilter с пустым фильтром, который всегда возвращает true
+    // Тест с пустым фильтром, который всегда возвращает true
     @Test
     void testCountByFilter_withAlwaysTrueFilter() {
         Filter filter = str -> true; // Фильтр всегда возвращает true
@@ -67,7 +66,7 @@ class ProductServiceTest {
         assertEquals(4, result);
     }
 
-    // Тест на countByFilter с пустой партией товаров
+    // Тест с пустой партией товаров
     @Test
     void testCountByFilter_withEmptyConsignment() {
         List<PackedWeightProduct5> emptyWeightProducts = Arrays.asList();
@@ -83,7 +82,7 @@ class ProductServiceTest {
         assertEquals(0, result);
     }
 
-    // Тест на countByFilter с фильтром, который ищет по полному имени товара
+    // Тест, который ищет по полному имени товара
     @Test
     void testCountByFilter_withExactNameMatch() {
         ContainsStringFilter filter = new ContainsStringFilter("Piece Product 1");
