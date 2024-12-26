@@ -1,80 +1,57 @@
 package Product;
 
-import org.example.*;
+import org.example.Consignment8;
+import org.example.PackedWeightProduct5;
+import org.example.ProductPackaging1;
+import org.example.Weightable;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+public class Consignment8Test {
 
-class Consignment8Test {
     @Test
-    void testConstructor() {
-        ProductPackaging1 packaging1 = new ProductPackaging1("Box", 1.5);
-        ProductPackaging1 packaging2 = new ProductPackaging1("Bag", 1.0);
+    public void testGetDescription() {
+        List<Weightable> products = Arrays.asList();//создаем список продуктов
+        Consignment8 consignment = new Consignment8("Первая партия", products);//создаем партию товаров
 
-        PackedWeightProduct5 weightProduct = new PackedWeightProduct5(new WeightProduct3("WeightProduct", "A heavy product"), packaging1, 10);
-        PackedPieceProduct6 pieceProduct = new PackedPieceProduct6(new PieceProduct4("PieceProduct", "A small item", 0.5), 5, packaging2);
-
-        Consignment8 consignment = new Consignment8("Test Consignment",
-                Arrays.asList(weightProduct),
-                Arrays.asList(pieceProduct));
-
-        assertEquals("Test Consignment", consignment.description);
-        assertEquals(1, consignment.getWeightProducts().size());
-        assertEquals(1, consignment.getProducts().size());
-        assertTrue(consignment.getWeightProducts().contains(weightProduct));
-        assertTrue(consignment.getProducts().contains(pieceProduct));
+        Assertions.assertEquals("Первая партия", consignment.getDescription(), "Описание должно совпадать");
     }
 
-    // Тест, который возвращает список штучных товаров
     @Test
-    void testGetProducts() {
-        ProductPackaging1 packaging = new ProductPackaging1("Box", 1.5);
-        PackedPieceProduct6 pieceProduct = new PackedPieceProduct6(new PieceProduct4("PieceProduct", "A small item", 0.5), 5, packaging);
+    public void testGetProducts() {
+        // Создаем продукты
+        Weightable product1 = new PackedWeightProduct5("Product1", "Description1", 10, new ProductPackaging1("Коробка", 1));
+        Weightable product2 = new PackedWeightProduct5("Product2", "Description2", 5, new ProductPackaging1("Сумка", 0.5));
+        List<Weightable> products = Arrays.asList(product1, product2);
 
-        Consignment8 consignment = new Consignment8("Test Consignment",
-                Arrays.asList(),
-                Arrays.asList(pieceProduct));
+        Consignment8 consignment = new Consignment8("Первая партия", products);// Создаем партию товаров
 
-        // Проверяем, что метод getProducts возвращает правильный список
-        assertEquals(1, consignment.getProducts().size());
-        assertTrue(consignment.getProducts().contains(pieceProduct));
+        Assertions.assertEquals(products, consignment.getProducts(), "Список продуктов должен совпадать");// Проверяем, что список продуктов совпадает
     }
 
-    // Тест, который возвращает список весовых товаров
     @Test
-    void testGetWeightProducts() {
-        ProductPackaging1 packaging = new ProductPackaging1("Box", 1.5);
-        PackedWeightProduct5 weightProduct = new PackedWeightProduct5(new WeightProduct3("WeightProduct", "A heavy product"), packaging, 10);
+    public void testGetTotalGrossWeight() {
+        Weightable product1 = new PackedWeightProduct5("Product1", "Description1", 10, new ProductPackaging1("Коробка", 1));
+        Weightable product2 = new PackedWeightProduct5("Product2", "Description2", 5, new ProductPackaging1("Сумка", 0.5));
+        List<Weightable> products = Arrays.asList(product1, product2);
 
-        Consignment8 consignment = new Consignment8("Test Consignment",
-                Arrays.asList(weightProduct),
-                Arrays.asList());
+        Consignment8 consignment = new Consignment8("Первая партия", products);
 
-        // Проверяем, что метод getWeightProducts возвращает правильный список
-        assertEquals(1, consignment.getWeightProducts().size());
-        assertTrue(consignment.getWeightProducts().contains(weightProduct));
+        // Проверяем общий вес
+        double expectedGrossWeight = 10 + 1 + 5 + 0.5; // 16.5
+        Assertions.assertEquals(expectedGrossWeight, consignment.getTotalGrossWeight(), "Общий вес должен быть равен 16.5");
     }
 
-    // Тест, который возвращает общую массу брутто
     @Test
-    void testGetTotalGrossWeight() {
-        ProductPackaging1 packaging1 = new ProductPackaging1("Box", 1.5);
-        ProductPackaging1 packaging2 = new ProductPackaging1("Bag", 1.0);
+    public void testEmptyConsignment() {
+        List<Weightable> emptyProducts = Arrays.asList(); // Создаем пустую партию
+        Consignment8 consignment = new Consignment8("Пустая партия", emptyProducts);
 
-        PackedWeightProduct5 weightProduct = new PackedWeightProduct5(new WeightProduct3("WeightProduct", "A heavy product"), packaging1, 10);
-        PackedPieceProduct6 pieceProduct = new PackedPieceProduct6(new PieceProduct4("PieceProduct", "A small item", 0.5), 5, packaging2);
+        Assertions.assertEquals(0.0, consignment.getTotalGrossWeight(), "Общий вес пустой партии должен быть равен 0.0");
 
-        Consignment8 consignment = new Consignment8("Test Consignment",
-                Arrays.asList(weightProduct),
-                Arrays.asList(pieceProduct));
-
-        // Масса брутто для каждого товара
-        double expectedGrossWeight = weightProduct.getGrossWeight() + pieceProduct.getGrossWeight();
-
-        // Проверяем, что метод getTotalGrossWeight возвращает правильную общую массу
-        assertEquals(expectedGrossWeight, consignment.getTotalGrossWeight(), 0.001);
+        Assertions.assertTrue(consignment.getProducts().isEmpty(), "Список продуктов должен быть пуст");
     }
 }
-

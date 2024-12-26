@@ -1,23 +1,22 @@
 package org.example;
 
 import java.util.Objects;
-//товар
-public class Product2 {
-    private String name;
-    private String description;
 
-    public Product2(String name, String description)
-    {
+public class Product2 {
+    private final String name;
+    private final String description;
+
+    public Product2(String name, String description) {
         this.name = name;
         this.description = description;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
     public String getName() {
         return name;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     @Override

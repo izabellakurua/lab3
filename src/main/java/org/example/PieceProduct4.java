@@ -1,12 +1,10 @@
 package org.example;
-//штучный товар
-public class PieceProduct4 extends Product2
-{
-    private final double weight; //вес одной штуки товара
 
-    public PieceProduct4(String name, String description, double weight)
-    {
-        super(name, description); // вызов конструктора родительского класса
+public class PieceProduct4 extends Product2 {
+    private final double weight;
+
+    public PieceProduct4(String name, String description, double weight) {
+        super(name, description);
         this.weight = weight;
     }
 

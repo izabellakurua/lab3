@@ -1,96 +1,59 @@
 package Service;
 
-import Interface.ContainsStringFilter;
 import Interface.Filter;
+import Interface.ContainsStringFilter;
 import org.example.Consignment8;
-import org.example.PackedPieceProduct6;
 import org.example.PackedWeightProduct5;
-import org.junit.jupiter.api.BeforeEach;
+import org.example.ProductPackaging1;
+import org.example.Weightable;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+public class ProductServiceTest {
 
-class ProductServiceTest {
-
-    private Consignment8 consignment;
-
-    @BeforeEach
-    void setUp() {
-        // Создаем несколько товаров для тестирования
-        PackedWeightProduct5 weightProduct1 = new PackedWeightProduct5(new org.example.WeightProduct3("Weight Product 1", "Description 1"), new org.example.ProductPackaging1("Box", 1.5), 10.0);
-        PackedWeightProduct5 weightProduct2 = new PackedWeightProduct5(new org.example.WeightProduct3("Weight Product 2", "Description 2"), new org.example.ProductPackaging1("Box", 1.5), 12.0);
-
-        PackedPieceProduct6 pieceProduct1 = new PackedPieceProduct6(new org.example.PieceProduct4("Piece Product 1", "Description 3", 0.5), 5, new org.example.ProductPackaging1("Wrap", 0.2));
-        PackedPieceProduct6 pieceProduct2 = new PackedPieceProduct6(new org.example.PieceProduct4("Piece Product 2", "Description 4", 0.6), 10, new org.example.ProductPackaging1("Bag", 0.3));
-
-        List<PackedWeightProduct5> weightProducts = Arrays.asList(weightProduct1, weightProduct2);
-        List<PackedPieceProduct6> pieceProducts = Arrays.asList(pieceProduct1, pieceProduct2);
-
-        consignment = new Consignment8("Consignment 1", weightProducts, pieceProducts);
-    }
-
-    // ищет по части строки
     @Test
-    void testCountByFilter_withContainsStringFilter() {
-        ContainsStringFilter filter = new ContainsStringFilter("Product");
+    public void testCountByFilter_Match() {
+        Weightable product1 = new PackedWeightProduct5("Яблоко", "Свежее яблоко", 1, new ProductPackaging1("Сумка", 0.1));
+        Weightable product2 = new PackedWeightProduct5("Банан", "Спелый банан", 1.5, new ProductPackaging1("Коробка", 0.2));
+        Weightable product3 = new PackedWeightProduct5("Яблоко-сок", "Натуральный яблочный сок", 2, new ProductPackaging1("Бутылка", 0.5));
 
-        // Проверяем, что фильтр найдет 4 товара с именами, содержащими "Product"
-        int result = ProductService.countByFilter(consignment, filter);
+        List<Weightable> products = Arrays.asList(product1, product2, product3); // Создаем партию товаров
+        Consignment8 consignment = new Consignment8("Партия фруктов", products);
 
-        assertEquals(4, result);
+        Filter filter = new ContainsStringFilter("Яблоко"); // Используем фильтр для поиска продуктов, содержащих "Яблоко"
+        int count = ProductService.countByFilter(consignment, filter);
+
+        Assertions.assertEquals(2, count, "Должно быть 2 продукта, содержащих 'Яблоко' в названии");
     }
 
-    // Тест, который не находит совпадений
     @Test
-    void testCountByFilter_withNoMatches() {
-        ContainsStringFilter filter = new ContainsStringFilter("Nonexistent");
+    public void testCountByFilter_NoMatch() {
+        // Создаем продукты
+        Weightable product1 = new PackedWeightProduct5("Яблоко", "Свежее яблоко", 1, new ProductPackaging1("Сумка", 0.1));
+        Weightable product2 = new PackedWeightProduct5("Банан", "Спелый банан", 1.5, new ProductPackaging1("Коробка", 0.2));
 
-        // Проверяем, что фильтр не найдет никаких товаров
-        int result = ProductService.countByFilter(consignment, filter);
+        List<Weightable> products = Arrays.asList(product1, product2);
+        Consignment8 consignment = new Consignment8("Партия фруктов", products);
 
-        assertEquals(0, result);
+        // Используем фильтр для поиска продуктов, содержащих "Апельсин"
+        Filter filter = new ContainsStringFilter("Апельсин");
+        int count = ProductService.countByFilter(consignment, filter);
+
+        // Проверяем количество найденных продуктов
+        Assertions.assertEquals(0, count, "Не должно быть найдено продуктов, содержащих 'Orange' в названии");
     }
 
-    // Тест с пустым фильтром, который всегда возвращает true
     @Test
-    void testCountByFilter_withAlwaysTrueFilter() {
-        Filter filter = str -> true; // Фильтр всегда возвращает true
+    public void testCountByFilter_EmptyConsignment() {
+        List<Weightable> products = Arrays.asList();// Создаем пустую партию
+        Consignment8 consignment = new Consignment8("Пустая партия", products);
 
-        // Проверяем, что все товары будут посчитаны
-        int result = ProductService.countByFilter(consignment, filter);
+        Filter filter = new ContainsStringFilter("Яблоко");
+        int count = ProductService.countByFilter(consignment, filter);
 
-        // У нас 2 весовых товара и 2 штучных товара, всего 4 товара
-        assertEquals(4, result);
+        Assertions.assertEquals(0, count, "Не должно быть найдено продуктов в пустой партии");
     }
-
-    // Тест с пустой партией товаров
-    @Test
-    void testCountByFilter_withEmptyConsignment() {
-        List<PackedWeightProduct5> emptyWeightProducts = Arrays.asList();
-        List<PackedPieceProduct6> emptyPieceProducts = Arrays.asList();
-
-        Consignment8 emptyConsignment = new Consignment8("Empty Consignment", emptyWeightProducts, emptyPieceProducts);
-
-        ContainsStringFilter filter = new ContainsStringFilter("Product");
-
-        // Проверяем, что метод возвращает 0, так как в партии нет товаров
-        int result = ProductService.countByFilter(emptyConsignment, filter);
-
-        assertEquals(0, result);
-    }
-
-    // Тест, который ищет по полному имени товара
-    @Test
-    void testCountByFilter_withExactNameMatch() {
-        ContainsStringFilter filter = new ContainsStringFilter("Piece Product 1");
-
-        // Проверяем, что фильтр находит только 1 товар, у которого имя совпадает с "Piece Product 1"
-        int result = ProductService.countByFilter(consignment, filter);
-
-        assertEquals(1, result);
-    }
-
 }

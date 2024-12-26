@@ -1,31 +1,34 @@
 package org.example;
-//Упакованный весовой товар
-public class PackedWeightProduct5 extends WeightProduct3 {
-    private final double weight; //вес товара в упаковке
-    private final ProductPackaging1 productPackaging;// поле для хранения объекта упаковки
 
-    public PackedWeightProduct5(WeightProduct3 weightProduct, ProductPackaging1 productPackaging, double weight)
-    {
-        super(weightProduct.getName(), weightProduct.getDescription());
-        this.weight = weight;//вес товара без упаковки
-        this.productPackaging = productPackaging; //объект упаковки
+public class PackedWeightProduct5 extends WeightProduct3 implements Weightable {
+    private final double weight;
+    private final ProductPackaging1 productPackaging;
+
+    public PackedWeightProduct5(String name, String description, double weight, ProductPackaging1 productPackaging) {
+        super(name, description);
+        this.weight = weight;
+        this.productPackaging = productPackaging;
     }
 
     public ProductPackaging1 getProductPackaging() {
-        return productPackaging; //получение объекта упаковки
+        return productPackaging;
     }
+
+    @Override
     public double getNetWeight() {
-        return weight; // масса нетто
+        return weight;
     }
-    public double getGrossWeight(){
-        return weight + productPackaging.getWeight(); // масса брутто
+
+    @Override
+    public double getGrossWeight() {
+        return weight + productPackaging.getWeight();
     }
 
     @Override
     public String toString() {
         return "PackedWeightProduct{" +
-                "productPackaging=" + productPackaging +
-                ", weight=" + weight +
+                "weight=" + weight +
+                ", productPackaging=" + productPackaging +
                 '}';
     }
 }

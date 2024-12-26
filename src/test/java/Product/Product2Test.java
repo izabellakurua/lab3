@@ -9,13 +9,13 @@ class Product2Test {
 
     @Test
     void testGetName() {
-        Product2 product = new Product2("Apple", "Fresh green apple");
-        assertEquals("Apple", product.getName());
+        Product2 product = new Product2("Яблоко", "Свежие зеленые яблоки");
+        assertEquals("Яблоко", product.getName());
     }
 
     @Test
     void testGetDescription() {
-        Product2 product = new Product2("Apple", "Fresh green apple");
-        assertEquals("Fresh green apple", product.getDescription());
+        Product2 product = new Product2("Яблоко", "Свежие зеленые яблоки");
+        assertEquals("Свежие зеленые яблоки", product.getDescription());
     }
 }
